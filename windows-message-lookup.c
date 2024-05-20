@@ -11,7 +11,6 @@
 // OutputDebugString(std::format(L"{:04x}: {:32} WP: {:016x}  LP: {:016x}\n", uMsg, WindowsMessageLookup(uMsg), wParam, lParam).c_str());
 // --------------------------------------------------------------------------
 
-#pragma once
 #include <windows.h>
 
 // https://wiki.winehq.org/List_Of_Windows_Messages

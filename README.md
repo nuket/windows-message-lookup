@@ -12,18 +12,21 @@ subsystem specific.
 
 ## Import It
 
-```c
+```cpp
 extern "C" const TCHAR * const WindowsMessageLookup(UINT message);
+extern std::wstring WindowsMessageDetails(UINT message, WPARAM wParam, LPARAM lParam);
 ```
 
 ## Use It (with UNICODE defined)
 
-```c
+```cpp
 wprintf(L"%04x: %32s WP: %016x  LP: %016x\n", uMsg, WindowsMessageLookup(uMsg), wParam, lParam);
 
 std::wcout << std::format(L"{:04x}: {:32} WP: {:016x}  LP: {:016x}\n", uMsg, WindowsMessageLookup(uMsg), wParam, lParam) << std::endl;
 
 OutputDebugString(std::format(L"{:04x}: {:32} WP: {:016x}  LP: {:016x}\n", uMsg, WindowsMessageLookup(uMsg), wParam, lParam).c_str());
+
+OutputDebugStringW(WindowsMessageDetails(uMsg, wParam, lParam).c_str());
 ```
 
 ## License
@@ -41,7 +44,7 @@ No disrespect to the author that inspired me to write this,
 but the following code made my eyes bleed.
 
 - non-`const` use of `unordered_map`
-- O(N) vs. O(1) lookups 🤷🏻‍♂️
+- O(N) vs. O(1) lookups 🤷🏻‍♂️ (maybe O(1) to O(1) if unordered_map is a hash table)
 - `iostreams` was the worst thing to ever happen to console I/O besides
   Windows using `wchar_t` instead of UTF-8
 
